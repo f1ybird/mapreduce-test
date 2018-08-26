@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 /**
- * describe  : 本地运行wordcount程序
+ * describe  : 单词统计
  *
  * 注意事项：wordcount程序加载配置文件的顺序为:
  *
@@ -40,11 +40,10 @@ public class WordCountDemo {
         FileSystem fs = FileSystem.get(conf);
 
         //通过Configuration对象获取job对象，该job对象会组织所有的该mapreduce的所有各种组件
-        Job job = Job.getInstance(conf);
+        Job job = Job.getInstance(conf,"wordCount");
         //指定jar包所在路径，本地模式需要这样指定，如果不是本地，则使用setJarByClass指定所在class文件即可
-        //job.setJarByClass("wordcountJar/wordcount.jar")
-//        job.setJar("wordcountJar/wordcount.jar");
-        job.setJarByClass(WordCountDemo.class);
+        job.setJar("out/artifacts/wordCount/wordCount.jar");
+//        job.setJarByClass(WordCountDemo.class);
 
         //指定mapper类和reducer类
         job.setMapperClass(WordcountMapper.class);

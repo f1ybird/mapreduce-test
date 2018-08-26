@@ -20,5 +20,30 @@
 	<property>                                                                    
 		<name>mapreduce.framework.name</name>  
 		<value>yarn</value>  
-	</property>  
-</configuration> 
+	</property>
+	<property>
+		<name>mapred.remote.os</name>
+		<value>Linux</value>
+		<description>Remote MapReduce framework's OS, can be either Linux or Windows</description>
+	</property>
+	<property>
+		<name>mapreduce.app-submission.cross-platform</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>mapreduce.map.java.opts</name>
+		<value>-Xmx1024M</value>
+	</property>
+	<property>
+		<name>mapreduce.reduce.java.opts</name>
+		<value>-Xmx1024M</value>
+	</property>
+	<property>
+		<name>mapreduce.map.memory.mb</name>
+		<value>2048</value>
+	</property>
+	<property>
+		<name>mapreduce.reduce.memory.mb</name>
+		<value>2048</value>
+	</property>
+</configuration>
