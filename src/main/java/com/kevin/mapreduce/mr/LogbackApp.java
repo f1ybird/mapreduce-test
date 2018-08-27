@@ -1,11 +1,11 @@
-package com.kevin.mapreduce.demo;
+package com.kevin.mapreduce.mr;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class App {
+public class LogbackApp {
 
-    private final static Logger logger = LoggerFactory.getLogger(App.class);
+    private final static Logger logger = LoggerFactory.getLogger(LogbackApp.class);
 
     public static void main(String[] args) {
         logger.info("logback 成功了");

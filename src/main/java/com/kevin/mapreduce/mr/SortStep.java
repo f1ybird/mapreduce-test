@@ -1,4 +1,4 @@
-package com.kevin.mapreduce.demo;
+package com.kevin.mapreduce.mr;
 
 import com.kevin.mapreduce.constants.Constant;
 import com.kevin.mapreduce.utils.MapReduceJobUtil;
@@ -40,7 +40,7 @@ public class SortStep {
 
         Job job = MapReduceJobUtil.buildJob(new Configuration(), args, SortStep.class,
                 TextInputFormat.class, SortMapper.class, InfoBean.class, NullWritable.class,
-                TextOutputFormat.class, SortReducer.class, Text.class, InfoBean.class);
+                TextOutputFormat.class, SortReducer.class, Text.class, InfoBean.class,null);
 
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }

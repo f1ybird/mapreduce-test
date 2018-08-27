@@ -17,7 +17,7 @@ public class TabSplitUtil {
 
 
     public static void main(String[] args){
-        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_sumStep.txt").getPath();
+        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_file.txt").getPath();
         System.out.println(path);
         List<String> list = TabSplitUtil.tabSplit(path);
         list.stream().forEach(s->{
@@ -26,7 +26,7 @@ public class TabSplitUtil {
     }
 
     /**
-     * 读取文件内容，并使用tab分隔后返回一个list
+     * 读取文件内容，并使用4个空格分隔后返回一个list
      * @param fileName
      * @return
      */

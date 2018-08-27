@@ -1,0 +1,5 @@
+hello	in_inverseIndex02.txt->3 in_inverseIndex01.txt->5 
+jerry	in_inverseIndex01.txt->1 in_inverseIndex02.txt->1 
+kitty	in_inverseIndex01.txt->1 
+tom	    in_inverseIndex01.txt->2 in_inverseIndex02.txt->1
+world   in_inverseIndex02.txt->1 in_inverseIndex01.txt->1

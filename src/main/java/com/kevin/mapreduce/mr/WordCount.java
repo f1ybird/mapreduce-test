@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kevin.mapreduce.demo;
+package com.kevin.mapreduce.mr;
 
 import java.io.IOException;
 import java.util.StringTokenizer;

@@ -1,4 +1,4 @@
-package com.kevin.mapreduce.demo;
+package com.kevin.mapreduce.mr;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;

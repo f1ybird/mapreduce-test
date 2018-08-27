@@ -1,4 +1,4 @@
-package com.kevin.mapreduce.demo;
+package com.kevin.mapreduce.mr;
 
 import com.kevin.mapreduce.constants.Constant;
 import org.apache.hadoop.conf.Configuration;

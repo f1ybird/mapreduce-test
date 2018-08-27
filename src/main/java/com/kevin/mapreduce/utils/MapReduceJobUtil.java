@@ -30,6 +30,7 @@ public class MapReduceJobUtil {
      * @param reducerClass reducer类
      * @param outkeyClass  reducer的输出key类型
      * @param outvalueClass reducer的输出value类型
+     * @param combinerClass combiner类
      * @return job
      * @throws IOException IO异常
      */
@@ -43,7 +44,8 @@ public class MapReduceJobUtil {
                                Class<? extends OutputFormat> outputFormat,
                                Class<? extends Reducer> reducerClass,
                                Class<?> outkeyClass,
-                               Class<?> outvalueClass) throws IOException {
+                               Class<?> outvalueClass,
+                               Class<? extends Reducer> combinerClass) throws IOException {
 
         String jobName = jobClazz.getSimpleName();
         Job job = Job.getInstance(conf, jobName);
@@ -81,6 +83,11 @@ public class MapReduceJobUtil {
             job.setReducerClass(reducerClass);
             job.setOutputKeyClass(outkeyClass);
             job.setOutputValueClass(outvalueClass);
+        }
+
+        //设置combiner，如果有才设置，没有的话不用设置
+        if(null != combinerClass){
+            job.setCombinerClass(combinerClass);
         }
         return job;
     }
