@@ -1,6 +1,7 @@
 package com.kevin.mapreduce.utils;
 
 import com.kevin.mapreduce.constants.Constant;
+import com.kevin.mapreduce.utils.file.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +17,46 @@ public class TabSplitUtil {
     private static Logger log = LoggerFactory.getLogger(TabSplitUtil.class);
 
 
-    public static void main(String[] args){
-        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_file.txt").getPath();
+    public static void main(String[] args) throws Exception{
+        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_friend.txt").getPath();
         System.out.println(path);
-        List<String> list = TabSplitUtil.tabSplit(path);
-        list.stream().forEach(s->{
-            System.out.println(s);
-        });
+//        List<String> list = TabSplitUtil.tabSplit(path);
+//        list.stream().forEach(s->{
+//            System.out.println(s);
+//        });
+        TabSplitUtil.replaceByTab(path);
+    }
+
+    /**
+     * 将文件中 的每行内容间的分隔符由空格改成"\t"
+     * @param fileName 文件名 如：C:\file.txt
+     * @return
+     */
+    public static void replaceByTab(String fileName){
+        List<String> list = new ArrayList<String>();
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        try {
+            fis = new FileInputStream(new File(fileName));
+            isr = new InputStreamReader(fis, "UTF-8");
+            br = new BufferedReader(isr);
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                line = line.replaceAll(Constant.SPACE_SPLIT_1,Constant.TAB_SPLIT);
+                FileUtils.writeString(new File(fileName),true,line);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                br.close();
+                isr.close();
+                fis.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

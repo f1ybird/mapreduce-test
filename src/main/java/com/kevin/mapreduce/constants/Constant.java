@@ -10,4 +10,16 @@ public class Constant {
 
     /**tab分隔符，4个空格*/
     public static final String TAB_SPLIT_4 = "    ";
+
+    /**空格分隔符，1个空格*/
+    public static final String SPACE_SPLIT_1 = " ";
+
+    /**tab分隔符，"\t" */
+    public static final String TAB_SPLIT = "\t";
+
+    /**字符集，UTF-8 */
+    public static final String CHARSET_UTF_8 = "UTF-8";
+
+    /**字符集，GBK */
+    public static final String CHARSET_GBK = "GBK";
 }

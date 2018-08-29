@@ -9,5 +9,5 @@ package com.kevin.mapreduce.constants;
 public class PathConst {
 
     /**jar包的（相对）输出路径*/
-    public static final String JAR_OUTPUT_PATH = "out/artifacts/wordCount/wordCount.jar";
+    public static final String JAR_OUTPUT_PATH = "out/artifacts/mr/mr.jar";
 }

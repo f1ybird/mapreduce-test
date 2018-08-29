@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="mapreduce-test" target="8" />
+      <module name="mapreduce-test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
