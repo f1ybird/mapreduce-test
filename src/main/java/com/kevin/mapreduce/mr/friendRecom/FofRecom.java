@@ -1,6 +1,7 @@
 package com.kevin.mapreduce.mr.friendRecom;
 
 import com.kevin.mapreduce.constants.PathConst;
+import com.kevin.mapreduce.utils.LoggerUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -18,19 +19,23 @@ import java.io.IOException;
 
 /**
  * describe  : 简单好友推荐
- * creat_user: zhangkai
+ *
+ * 输入文件：file/in_friend.txt
+ * 输出文件：file/out_friend.txt
+ *
+ * creat_user: kevin
  * creat_time: 2018/8/29 23:22
  * email     : kevin_love_it@163.com
  **/
 public class FofRecom {
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         try {
             Configuration config = new Configuration();
             FileSystem fs = FileSystem.get(config);
 
             //设置job
-            Job job = Job.getInstance(config,"friend recommendation");
+            Job job = Job.getInstance(config, "friend recommendation");
             //job.setJarByClass(FofRecom.class);
             job.setJar(PathConst.JAR_OUTPUT_PATH);
 
@@ -50,29 +55,30 @@ public class FofRecom {
             //设置输入输出目录
             FileInputFormat.addInputPath(job, new Path("/input/in_friend.txt"));
             Path outPath = new Path("/output/out_friend");
-            if(fs.exists(outPath)){
+            if (fs.exists(outPath)) {
                 fs.delete(outPath, true);
             }
             FileOutputFormat.setOutputPath(job, outPath);
 
             //提交任务
             boolean f = job.waitForCompletion(true);
-            if(f){
+            if (f) {
                 System.out.println("job执行成功");
             }
         } catch (Exception e) {
+            LoggerUtil.error("job执行失败");
             e.printStackTrace();
         }
     }
 
-    static class FofMapper extends Mapper<Text,Text,Fof,IntWritable>{
+    static class FofMapper extends Mapper<Text, Text, Fof, IntWritable> {
 
         protected void map(Text key, Text value, Context context)
                 throws IOException, InterruptedException {
             //用户
             String user = key.toString();
             //用户所有的好友列表
-            String[] friends = StringUtils.split(value.toString(), "x");
+            String[] friends = StringUtils.split(value.toString(), "\t");
             //好友之间的FOF关系矩阵
             for (int i = 0; i < friends.length; i++) {
                 //好友1
@@ -92,24 +98,24 @@ public class FofRecom {
         }
     }
 
-    static class FofReducer extends Reducer<Fof,IntWritable,Fof,IntWritable>{
+    static class FofReducer extends Reducer<Fof, IntWritable, Fof, IntWritable> {
 
-        protected void reduce(Fof fof, Iterable<IntWritable> itr,Context context)
+        protected void reduce(Fof fof, Iterable<IntWritable> itr, Context context)
                 throws IOException, InterruptedException {
             int sum = 0;
             boolean f = true;
-            for(IntWritable i : itr){
+            for (IntWritable i : itr) {
                 //已经是好友关系
-                if(i.get() == 0){
+                if (i.get() == 0) {
                     f = false;
                     break;
-                }else {
+                } else {
                     //累计，统计FOF的系数
-                    sum = sum+i.get();
+                    sum = sum + i.get();
                 }
             }
             //已经是好友关系的，不再重复推介
-            if(f){
+            if (f) {
                 //输出key为潜在好友对，值为出现的次数
                 context.write(fof, new IntWritable(sum));
             }

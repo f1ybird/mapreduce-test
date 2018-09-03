@@ -2,6 +2,7 @@ package com.kevin.mapreduce.utils;
 
 import com.kevin.mapreduce.constants.Constant;
 import com.kevin.mapreduce.utils.file.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +19,14 @@ public class TabSplitUtil {
 
 
     public static void main(String[] args) throws Exception{
-        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_friend.txt").getPath();
+        String path = TabSplitUtil.class.getClassLoader().getResource("file/in_friend2.txt").getPath();
         System.out.println(path);
 //        List<String> list = TabSplitUtil.tabSplit(path);
 //        list.stream().forEach(s->{
 //            System.out.println(s);
 //        });
         TabSplitUtil.replaceByTab(path);
+
     }
 
     /**
@@ -33,30 +35,20 @@ public class TabSplitUtil {
      * @return
      */
     public static void replaceByTab(String fileName){
-        List<String> list = new ArrayList<String>();
-        FileInputStream fis = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
-        try {
-            fis = new FileInputStream(new File(fileName));
-            isr = new InputStreamReader(fis, "UTF-8");
-            br = new BufferedReader(isr);
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                line = line.replaceAll(Constant.SPACE_SPLIT_1,Constant.TAB_SPLIT);
-                FileUtils.writeString(new File(fileName),true,line);
-            }
+        try{
+            List<String> lines = FileUtils.readFileByLines(fileName, "UTF-8");
+            String writeFileName = fileName.substring(0,fileName.lastIndexOf(File.separator)+1) + "writeFile.txt";
+            lines.stream().forEach(s -> {
+                if(StringUtils.isNotBlank(s)){
+                    String newLine = s.replaceAll(Constant.SPACE_SPLIT_1, Constant.TAB_SPLIT) + "\n";
+                    FileUtils.writeFile(newLine,writeFileName,"UTF-8",true);
+                }
+            });
+            LoggerUtil.info("replace tab successful!");
         }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            try{
-                br.close();
-                isr.close();
-                fis.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            LoggerUtil.error("replace tab failed!");
         }
+
     }
 
     /**
