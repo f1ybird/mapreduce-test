@@ -1,0 +1,3 @@
+ACCOUNTING	deptNum:3,avgSalary:2916
+RESEARCH	deptNum:3,avgSalary:2258
+SALES	deptNum:6,avgSalary:1566

@@ -14,6 +14,9 @@ public class Constant {
     /**空格分隔符，1个空格*/
     public static final String SPACE_SPLIT_1 = " ";
 
+    /**英文逗号分隔 */
+    public static final String COMMA_SPLIT = ",";
+
     /**tab分隔符，"\t" */
     public static final String TAB_SPLIT = "\t";
 
