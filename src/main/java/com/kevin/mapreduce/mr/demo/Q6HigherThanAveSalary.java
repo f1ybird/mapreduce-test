@@ -22,6 +22,10 @@ import java.io.IOException;
 
 /**
  * describe  : 列出工资比公司平均工资高的员工姓名及其工资
+ *
+ * 输入文件：file/dept.txt file/emp.txt
+ * 输出文件：file/higherThanAveSalary.txt
+ *
  * creat_user: kevin
  * creat_time: 2018/9/4 22:39
  * email     : kevin_love_it@163.com
